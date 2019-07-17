@@ -1,0 +1,99 @@
+swagger: "2.0"
+info:
+  description: "This is a AND digital technincal test api."
+  version: "1.0.0"
+  title: "AND digital technical test"
+  contact:
+    email: "sam.mortha@gmail.com"
+  license:
+    name: "Apache 2.0"
+host: "localhost:8080"
+basePath: "/api"
+tags:
+- name: "customer phone numbers"
+  description: "Customers and their phone numbers"
+schemes:
+- "http"
+paths:
+  /phonenumbers/activate:
+    post:
+      tags:
+      - "phonenumbers"
+      summary: "activate a phone number"
+      operationId: "activatePhoneNumber"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "PhoneNumber object that needs to be activated"
+        required: true
+        schema:
+          $ref: "#/definitions/PhoneNumber"
+      responses:
+        200:
+          description: "Success"
+  /phonenumbers:
+    get:
+      tags:
+      - "phonenumbers"
+      summary: "Finds all phone numbers"
+      description: "Get all phone numbers in the system"
+      operationId: "getAllPhoneNumbers"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PhoneNumber"
+  /phonenumbers/customer/{customerId}:
+    get:
+      tags:
+      - "phonenumbers"
+      summary: "Finds phone numbers by customer id"
+      operationId: "getCustomerPhoneNumbers"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "customerId"
+        in: "path"
+        description: "The phone numbers of a particular customer that needs to be fetched. Use customer 1 for testing. "
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PhoneNumber"
+        400:
+          description: "Invalid customer id value"
+definitions:
+  PhoneNumber:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      phoneNumber:
+        type: "string"
+      isActive:
+        type: "boolean"
+        default: false  
+  Customer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      phoneNumbers:
+        type: "array"
+        xml:
+          name: "PhoneNumber"
+          wrapped: true
+        items:
+          $ref: "#/definitions/PhoneNumber"
