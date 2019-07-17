@@ -3,7 +3,7 @@ AND digital technical test
 
 This is a Coding Challange exercise for AND digital technical interview.
 
-Did develop a Java SpringBoot application which exposes the RESTful end points as API.
+Did develop a Java SpringBoot application which exposes the RESTful end points as API :
 
 1. Used Maven as Project Management Tool.
 2. Added and-digital-swagger.yaml for API specification of end points.
